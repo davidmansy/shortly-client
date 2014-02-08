@@ -1,0 +1,10 @@
+<div class="navigation" ng-controller="NavController">
+  <ul>
+    <li><a  href="#/" class="index {{ indexSelected }}"
+            ng-click="updateNav('index')" >All Links</a></li>
+    <li><a  href="#/shorten" class="create {{ createSelected }}"
+            ng-click="updateNav('create')" >Shorten</a></li>
+  </ul>
+</div>
+
+<div ng-view></div>

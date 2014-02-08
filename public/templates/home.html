@@ -1,0 +1,16 @@
+<!-- <div ng-repeat="link in links | orderBy:'created_at':true ">
+ --><!-- Static sorting  true is descending
+ -->
+<div ng-init="orderCriteria='visits'; reverse=false">
+  <button ng-click="orderCriteria = 'title'">Title</button>  
+  <div ng-repeat="link in links | orderBy:orderCriteria:reverse">
+    <img src="/redirect_icon.png"/>
+    <div class="info">
+      <div class="visits"><span class="count">{{ link.visits }}</span>Visits</div>
+      <div class="title">{{ link.title }}</div>
+      <div class="original">{{ link.url }}</div>
+      <a href="http://{{ host }}:{{ port }}/{{ link.code }}">http://{{ host }}:{{ port }}/{{ link.code }}</a>
+
+    </div>
+  </div>
+</div>
