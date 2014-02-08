@@ -1,16 +1,16 @@
-<!-- <div ng-repeat="link in links | orderBy:'created_at':true ">
- --><!-- Static sorting  true is descending
- -->
-<div ng-init="orderCriteria='visits'; reverse=false">
-  <button ng-click="orderCriteria = 'title'">Title</button>  
-  <div ng-repeat="link in links | orderBy:orderCriteria:reverse">
+<div ng-init="orderCriteria='visits'; reverse=true">
+  <button ng-click="orderCriteria = 'title'">Title</button>
+  <button ng-click="orderCriteria = 'visits'">Visits</button>  
+  <button ng-click="reverse = 'false'">Asc</button>
+  <button ng-click="reverse = 'true'">Desc</button>
+  <input type="text" ng-model="searchText.$" placeholder="Enter your criteria"></input>
+  <div ng-repeat="link in links | orderBy:orderCriteria:reverse | filter:searchText">
     <img src="/redirect_icon.png"/>
     <div class="info">
       <div class="visits"><span class="count">{{ link.visits }}</span>Visits</div>
       <div class="title">{{ link.title }}</div>
       <div class="original">{{ link.url }}</div>
       <a href="http://{{ host }}:{{ port }}/{{ link.code }}">http://{{ host }}:{{ port }}/{{ link.code }}</a>
-
     </div>
   </div>
 </div>

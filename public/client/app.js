@@ -119,12 +119,35 @@ app.controller('LinkFormController', function($scope, $location, LinkService) {
   $scope.port = $location.port();
   $scope.host = $location.host();
   $scope.links = [];
+  $scope.spinnerRunning = false;
+  $scope.formButtonDisabled = '';
+  $scope.requiredUrlError = false;
+  $scope.validUrlError = false;
+  $scope.accessDeniedUrl = false;
   $scope.shortenUrl = function() {
-    console.log($scope.url);
-    LinkService.postLink($scope.url)
-    .then(function(linkObj) {
-      console.log(linkObj.data);
-      $scope.links.push(linkObj.data);
-    });
+    if(createLinkForm.$error) {
+      if(createLinkForm.$error.required) {
+        $scope.requiredUrlError = true;
+      } else {
+        $scope.validUrlError = true;      
+      }
+    } else {
+      $scope.requiredUrlError = false;
+      $scope.validUrlError = false;
+      $scope.spinnerRunning = true;
+      $scope.formButtonDisabled = 'disabled';
+      console.log($scope.url);
+      LinkService.postLink($scope.url)
+      .then(function(linkObj) {
+        $scope.spinnerRunning = false;
+        $scope.formButtonDisabled = '';
+        $scope.links.push(linkObj.data);
+      }, function(error) {
+        console.log('$http request failed ' + error);
+        $scope.spinnerRunning = false;
+        $scope.formButtonDisabled = '';
+        $scope.accessDeniedUrl = true;
+      });
+    }
   };
 });

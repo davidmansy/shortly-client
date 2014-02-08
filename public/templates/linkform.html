@@ -1,10 +1,11 @@
-<form ng-submit="shortenUrl()">
-  <input class="text" type="text" name="url" ng-model="url">
-  <input type="submit" value="Shorten">
+<form name="createLinkForm" ng-submit="shortenUrl()">
+  <input class="text" type="url" name="url" ng-model="url" required>
+  <input type="submit" value="Shorten" {{ formButtonDisabled }}>
 </form>
 <div class="message">
   <div ng-include="'/templates/home.html'"></div>
 </div>
-<!-- 
-<img class="spinner" src="/spiffygif_46x46.gif">
- -->
+<img ng-show="spinnerRunning" class="spinner" src="/spiffygif_46x46.gif">
+<div ng-show="requiredUrlError" class="error">The URL is required</div>
+<div ng-show="validUrlError" class="error">Please enter a valid URL</div>
+<div ng-show="accessDeniedUrl" class="error">URL Access denied</div>
